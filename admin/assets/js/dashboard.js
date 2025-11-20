@@ -1,5 +1,10 @@
 (function () {
     const navLinks = Array.from(document.querySelectorAll('[data-section-target]'));
+    const sections = Array.from(document.querySelectorAll('[data-section]'));
+    const sectionIndicator = document.getElementById('section-indicator');
+    const sectionIndicatorText = sectionIndicator ? sectionIndicator.querySelector('span') : null;
+
+    document.body.classList.add('sections-controlled');
 
     function setActiveLink(targetId) {
         navLinks.forEach((link) => {
@@ -7,23 +12,60 @@
         });
     }
 
+    function activateSection(targetId) {
+        let resolvedId = targetId;
+        let matched = false;
+
+        sections.forEach((section, index) => {
+            const isActive = targetId && section.id === targetId;
+            section.classList.toggle('is-active', isActive);
+            if (isActive) {
+                matched = true;
+            }
+            if (!targetId && index === 0) {
+                section.classList.add('is-active');
+                resolvedId = section.id;
+                matched = true;
+            }
+        });
+
+        if (!matched && sections.length) {
+            sections.forEach((section, index) => {
+                section.classList.toggle('is-active', index === 0);
+                if (index === 0) {
+                    resolvedId = section.id;
+                }
+            });
+        }
+
+        setActiveLink(resolvedId);
+
+        if (sectionIndicatorText) {
+            const activeSection = sections.find((section) => section.classList.contains('is-active'));
+            const heading = activeSection ? activeSection.querySelector('.section-header h2') : null;
+            sectionIndicatorText.textContent = heading ? heading.textContent.trim() : 'Painel';
+        }
+
+        if (resolvedId) {
+            history.replaceState(null, '', `#${resolvedId}`);
+        }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     navLinks.forEach((link) => {
         link.addEventListener('click', (event) => {
             const targetId = link.getAttribute('data-section-target');
-            const section = document.getElementById(targetId);
-            if (section) {
+            if (targetId) {
                 event.preventDefault();
-                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                setActiveLink(targetId);
-                history.replaceState(null, '', `#${targetId}`);
+                activateSection(targetId);
             }
         });
     });
 
     const initialHash = window.location.hash.replace('#', '');
-    if (initialHash) {
-        setActiveLink(initialHash);
-    }
+    const initialTarget = initialHash || (sections[0] ? sections[0].id : '');
+    activateSection(initialTarget);
 
     const dashboardData = window.dashboardData || { subcategories: [] };
     const courseCategorySelect = document.getElementById('course-category');

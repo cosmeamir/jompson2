@@ -267,6 +267,53 @@
         border: 1px solid var(--courses-border);
       }
 
+      .bank-coordinates {
+        margin-top: 14px;
+        border: 1px dashed rgba(15, 23, 42, 0.12);
+        border-radius: 14px;
+        padding: 14px 16px;
+        background: #fff7ed;
+      }
+
+      .bank-coordinates__header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+        color: #7c2d12;
+      }
+
+      .bank-coordinates__header h4 {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 800;
+        color: #7c2d12;
+      }
+
+      .bank-coordinates__header small {
+        display: block;
+        color: #9a3412;
+      }
+
+      .bank-coordinates dl {
+        margin: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 10px 12px;
+      }
+
+      .bank-coordinates dt {
+        font-weight: 700;
+        color: #0f172a;
+        font-size: 13px;
+      }
+
+      .bank-coordinates dd {
+        margin: 2px 0 0;
+        color: #334155;
+        word-break: break-word;
+      }
+
       .course-detail-side .course-price-chip {
         display: inline-flex;
         align-items: center;
@@ -811,6 +858,13 @@
         const successPopup = document.getElementById('success-popup');
         const closePopupButton = document.getElementById('close-popup');
         const courseCoverPlaceholder = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9IlNlbSBpbWFnZW0iPjxyZWN0IHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIiByeD0iMjQiIGZpbGw9IiNmMWY1ZjkiIHN0cm9rZT0iI2Q3ZGVlMyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iMC4zZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIGZpbGw9IiM3Yjc4OTQiIGZvbnQtc2l6ZT0iMjIiIGZvbnQtZmFtaWx5PSdOdW5pdG8sIHNhbnMtc2VyaWYnPiBDYXBhIGRvIGN1cnNvIDwvdGV4dD48L3N2Zz4=';
+        const bankCoordinates = {
+          bank: 'Banco Angolano de Investimentos (BAI)',
+          holder: 'Jompson & Consultores, Lda.',
+          account: '000/000/000000/00',
+          iban: 'AO06 0000 0000 0000 0000 0000',
+          swift: 'BAIPAO22'
+        };
 
         let activeCourseId = '';
         let courses = [];
@@ -1007,6 +1061,33 @@
             : `Pagamento em até ${paymentInstallments} prestações`;
           paymentChip.innerHTML = '<span class="ion-ios-card mr-1"></span><span>' + escapeText(installmentsLabel) + '</span>';
           side.appendChild(paymentChip);
+
+          const bankCard = document.createElement('div');
+          bankCard.className = 'bank-coordinates';
+          const bankHeader = document.createElement('div');
+          bankHeader.className = 'bank-coordinates__header';
+          bankHeader.innerHTML = '<span class="ion-ios-card"></span><div><h4>Coordenadas bancárias</h4><small>Confirma os dados antes de transferir.</small></div>';
+          bankCard.appendChild(bankHeader);
+
+          const bankList = document.createElement('dl');
+          const addBankRow = (label, value) => {
+            const dt = document.createElement('dt');
+            dt.textContent = label;
+            const dd = document.createElement('dd');
+            dd.textContent = value;
+            bankList.appendChild(dt);
+            bankList.appendChild(dd);
+          };
+
+          addBankRow('Banco', bankCoordinates.bank);
+          addBankRow('Titular', bankCoordinates.holder);
+          addBankRow('N.º da conta', bankCoordinates.account);
+          addBankRow('IBAN', bankCoordinates.iban);
+          addBankRow('SWIFT', bankCoordinates.swift);
+          addBankRow('Referência', `Curso: ${course.title}`);
+
+          bankCard.appendChild(bankList);
+          side.appendChild(bankCard);
 
           const overviewSection = buildParagraphs(course.overview);
           if (overviewSection) {

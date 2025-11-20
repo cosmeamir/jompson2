@@ -28,6 +28,33 @@ body {
     margin-top: 2rem;
 }
 
+.section-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.75rem;
+    background: #e7f1ff;
+    color: #0d6efd;
+    border: 1px solid #cfe2ff;
+    border-radius: 999px;
+    font-weight: 600;
+    margin-top: 0.25rem;
+}
+
+.sections-controlled [data-section] {
+    display: none;
+}
+
+.sections-controlled [data-section].is-active {
+    display: block;
+    animation: sectionFade 0.25s ease;
+}
+
+@keyframes sectionFade {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 .section-header h2 {
     margin-bottom: 0.25rem;
 }
@@ -282,6 +309,37 @@ body {
     max-width: 420px;
     width: 100%;
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
+.auth-card .input-group-text {
+    background: #eef2ff;
+    color: #0d6efd;
+    border: 1px solid #dbe3ff;
+    min-width: 44px;
+    justify-content: center;
+}
+
+.auth-card .input-group .form-control {
+    padding-left: 0.85rem;
+}
+
+.auth-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 0.25rem;
+}
+
+.auth-actions .btn {
+    padding-inline: 1.4rem;
 }
 
 .auth-brand {

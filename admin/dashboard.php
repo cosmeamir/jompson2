@@ -254,6 +254,10 @@ $dashboardPayload = [
                     <div>
                         <h1 class="mb-0">Painel administrativo</h1>
                         <p class="page-lead mb-0">Administra o catálogo de cursos, o blog e as pré-inscrições a partir deste ecrã.</p>
+                        <div class="section-indicator" id="section-indicator" aria-live="polite">
+                            <i class="bi bi-eye"></i>
+                            <span>Visão geral</span>
+                        </div>
                     </div>
                     <a class="btn btn-outline-primary mt-3 mt-md-0" href="../index.html" target="_blank" rel="noopener">
                         <i class="fa-solid fa-globe me-2"></i>Ver site público
