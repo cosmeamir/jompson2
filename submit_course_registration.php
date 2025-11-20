@@ -253,6 +253,25 @@ function send_registration_notification(string $subject, string $body, string $r
     return ['sent' => (bool) $sent, 'transport' => $sentVia];
 }
 
+function normalize_installments(int $value): int
+{
+    if ($value < 1) {
+        return 1;
+    }
+
+    if ($value > 4) {
+        return 4;
+    }
+
+    return $value;
+}
+
+function format_installment_label(int $value): string
+{
+    $normalized = normalize_installments($value);
+    return $normalized === 1 ? '1 prestação' : $normalized . ' prestações';
+}
+
 $empresa = field('empresa');
 $nome = field('nome');
 $pais = field('pais');
@@ -264,12 +283,15 @@ $curso = field('curso');
 $courseId = field('course_id');
 $coursePrice = field('course_price');
 $formaPagamento = field('forma_pagamento');
+$planoPagamento = field('plano_pagamento');
+$planoPagamentoNumero = null;
 $mensagem = field('mensagem');
 $comprovativo = $_FILES['comprovativo'] ?? null;
 $comprovativoMeta = null;
 
 $data = load_data();
 $coursesData = $data['courses'] ?? [];
+$courseInstallments = 1;
 
 $errors = [];
 
@@ -321,6 +343,18 @@ if ($matchedCourse === null) {
 } else {
     $curso = $matchedCourse['title'] ?? $curso;
     $coursePrice = $matchedCourse['price'] ?? $coursePrice;
+    $courseInstallments = normalize_installments((int) ($matchedCourse['installments'] ?? 1));
+
+    if ($planoPagamento === '') {
+        $errors[] = 'Selecciona o plano de pagamento disponível para este curso.';
+    } elseif (!ctype_digit($planoPagamento)) {
+        $errors[] = 'Selecciona um plano de pagamento válido.';
+    } else {
+        $planoPagamentoNumero = (int) $planoPagamento;
+        if ($planoPagamentoNumero < 1 || $planoPagamentoNumero > $courseInstallments) {
+            $errors[] = 'Selecciona um plano de pagamento válido para este curso.';
+        }
+    }
 }
 
 $allowedProofMimes = [
@@ -383,6 +417,9 @@ if (!empty($errors)) {
     exit;
 }
 
+$planoPagamentoNumero = $planoPagamentoNumero ?? 1;
+$planoPagamentoLabel = format_installment_label($planoPagamentoNumero);
+
 $uploadRelativePath = '';
 if ($comprovativoMeta !== null) {
     $uploadDir = __DIR__ . '/uploads/comprovativos';
@@ -424,6 +461,7 @@ $registration = [
     'curso' => $curso,
     'course_id' => $courseId,
     'course_price' => $coursePrice,
+    'plano_pagamento' => $planoPagamentoLabel,
     'forma_pagamento' => $formaPagamento,
     'mensagem' => $mensagem,
     'comprovativo' => $uploadRelativePath,
@@ -453,6 +491,7 @@ $lines = [
     'Profissão: ' . ($profissao !== '' ? $profissao : '—'),
     'ID do curso: ' . ($courseId !== '' ? $courseId : '—'),
     'Preço indicado: ' . ($coursePrice !== '' ? $coursePrice : '—'),
+    'Plano de pagamento: ' . $planoPagamentoLabel,
     'Forma de pagamento: ' . $formaPagamento,
     'Comprovativo: ' . ($uploadRelativePath !== '' ? $uploadRelativePath : '—'),
     '',

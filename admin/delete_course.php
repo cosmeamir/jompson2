@@ -2,6 +2,25 @@
 require_once __DIR__ . '/config.php';
 ensure_logged_in();
 
+function delete_course_image(string $relativePath): void
+{
+    if ($relativePath === '') {
+        return;
+    }
+
+    $cleanPath = ltrim($relativePath, '/');
+    $uploadsBase = trim(COURSE_UPLOAD_URL, '/');
+
+    if (strpos($cleanPath, $uploadsBase) !== 0) {
+        return;
+    }
+
+    $fullPath = __DIR__ . '/../' . $cleanPath;
+    if (is_file($fullPath)) {
+        @unlink($fullPath);
+    }
+}
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: dashboard.php#courses');
     exit;
@@ -17,6 +36,14 @@ if ($courseId === '') {
 
 $data = load_data();
 $courses = $data['courses'] ?? [];
+$deletedCourseCover = '';
+
+foreach ($courses as $course) {
+    if (($course['id'] ?? '') === $courseId) {
+        $deletedCourseCover = $course['cover_image'] ?? '';
+        break;
+    }
+}
 
 $initialCount = count($courses);
 $courses = array_values(array_filter($courses, static function (array $course) use ($courseId) {
@@ -28,6 +55,9 @@ if ($initialCount === count($courses)) {
 } else {
     $data['courses'] = $courses;
     save_data($data);
+    if ($deletedCourseCover !== '') {
+        delete_course_image($deletedCourseCover);
+    }
     $_SESSION['admin_success'] = 'Curso eliminado com sucesso.';
 }
 

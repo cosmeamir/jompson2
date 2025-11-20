@@ -153,6 +153,8 @@ $dashboardPayload = [
             'title' => $course['title'] ?? '',
             'headline' => $course['headline'] ?? '',
             'price' => $course['price'] ?? '',
+            'cover_image' => $course['cover_image'] ?? '',
+            'installments' => $course['installments'] ?? 1,
             'overview' => $course['overview'] ?? '',
             'general_objectives' => $course['general_objectives'] ?? '',
             'specific_objectives' => $course['specific_objectives'] ?? '',
@@ -515,9 +517,10 @@ $dashboardPayload = [
                             <h3 id="course-form-title">Adicionar curso</h3>
                             <span id="course-form-helper">Preenche os campos para adicionar um novo curso ao catálogo.</span>
                         </header>
-                        <form id="course-form" method="post" action="save_course.php">
+                        <form id="course-form" method="post" action="save_course.php" enctype="multipart/form-data">
                             <input type="hidden" name="mode" id="course-mode" value="create">
                             <input type="hidden" name="course_id" id="course-id" value="">
+                            <input type="hidden" name="current_cover_image" id="course-current-cover" value="">
                             <div class="mb-3">
                                 <label for="course-category" class="form-label">Categoria</label>
                                 <select class="form-select" id="course-category" name="category_id" required>
@@ -542,8 +545,24 @@ $dashboardPayload = [
                                 <input type="text" class="form-control" id="course-headline" name="headline" placeholder="Domine a narrativa do programa em poucas palavras">
                             </div>
                             <div class="mb-3">
+                                <label for="course-cover-image" class="form-label">Imagem de capa</label>
+                                <input type="url" class="form-control" id="course-cover-image" name="cover_image" placeholder="https://...">
+                                <input type="file" class="form-control mt-2" id="course-cover-upload" name="cover_image_file" accept="image/png,image/jpeg,image/webp">
+                                <div class="form-text">Carrega uma imagem (JPG, PNG ou WEBP até 2MB) ou indica um endereço público.</div>
+                            </div>
+                            <div class="mb-3">
                                 <label for="course-price" class="form-label">Preço do curso</label>
                                 <input type="text" class="form-control" id="course-price" name="price" placeholder="Ex.: 150.000 AOA" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="course-installments" class="form-label">Pagamentos em prestações</label>
+                                <select class="form-select" id="course-installments" name="installments">
+                                    <option value="1">1 prestação</option>
+                                    <option value="2">2 prestações</option>
+                                    <option value="3">3 prestações</option>
+                                    <option value="4">4 prestações</option>
+                                </select>
+                                <div class="form-text">Define o número máximo de prestações disponíveis para este curso.</div>
                             </div>
                             <div class="mb-3">
                                 <label for="course-overview" class="form-label">Descrição geral</label>
@@ -605,18 +624,20 @@ $dashboardPayload = [
                                                     $timestamp = strtotime($updatedAtRaw);
                                                     $updatedDisplay = $timestamp ? date('d/m/Y H:i', $timestamp) : $updatedAtRaw;
                                                 }
-                                                $courseJson = htmlspecialchars(json_encode([
-                                                    'id' => $course['id'] ?? '',
-                                                    'category_id' => $course['category_id'] ?? '',
-                                                    'subcategory_id' => $course['subcategory_id'] ?? '',
-                                                    'title' => $course['title'] ?? '',
-                                                    'headline' => $course['headline'] ?? '',
-                                                    'price' => $course['price'] ?? '',
-                                                    'overview' => $course['overview'] ?? '',
-                                                    'general_objectives' => $course['general_objectives'] ?? '',
-                                                    'specific_objectives' => $course['specific_objectives'] ?? '',
-                                                    'contents' => $course['contents'] ?? '',
-                                                    'details' => $course['details'] ?? '',
+                                                    $courseJson = htmlspecialchars(json_encode([
+                                                        'id' => $course['id'] ?? '',
+                                                        'category_id' => $course['category_id'] ?? '',
+                                                        'subcategory_id' => $course['subcategory_id'] ?? '',
+                                                        'title' => $course['title'] ?? '',
+                                                        'headline' => $course['headline'] ?? '',
+                                                        'price' => $course['price'] ?? '',
+                                                        'cover_image' => $course['cover_image'] ?? '',
+                                                        'installments' => $course['installments'] ?? 1,
+                                                        'overview' => $course['overview'] ?? '',
+                                                        'general_objectives' => $course['general_objectives'] ?? '',
+                                                        'specific_objectives' => $course['specific_objectives'] ?? '',
+                                                        'contents' => $course['contents'] ?? '',
+                                                        'details' => $course['details'] ?? '',
                                                     'pdf_url' => $course['pdf_url'] ?? '',
                                                 ], $dashboardJsonFlags), ENT_QUOTES, 'UTF-8');
                                             ?>
@@ -710,6 +731,9 @@ $dashboardPayload = [
                                                 <?php endif; ?>
                                                 <?php if (!empty($registration['course_id'])): ?>
                                                     <span class="registration-meta">ID: <?php echo htmlspecialchars($registration['course_id'], ENT_QUOTES, 'UTF-8'); ?></span>
+                                                <?php endif; ?>
+                                                <?php if (!empty($registration['plano_pagamento'])): ?>
+                                                    <span class="registration-meta">Plano de pagamento: <?php echo htmlspecialchars($registration['plano_pagamento'], ENT_QUOTES, 'UTF-8'); ?></span>
                                                 <?php endif; ?>
                                                 <span class="registration-meta">Forma de pagamento: <?php echo htmlspecialchars($registration['forma_pagamento'] ?? '—', ENT_QUOTES, 'UTF-8'); ?></span>
                                                 <?php if (!empty($registration['comprovativo'])): ?>

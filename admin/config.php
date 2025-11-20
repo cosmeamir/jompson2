@@ -7,6 +7,9 @@ const DATA_FILE = __DIR__ . '/../data/site-data.json';
 const UPLOAD_DIR = __DIR__ . '/../uploads/blog';
 const UPLOAD_URL = 'uploads/blog';
 const MAX_UPLOAD_SIZE = 2 * 1024 * 1024; // 2MB
+const COURSE_UPLOAD_DIR = __DIR__ . '/../uploads/courses';
+const COURSE_UPLOAD_URL = 'uploads/courses';
+const COURSE_MAX_UPLOAD_SIZE = 2 * 1024 * 1024; // 2MB
 
 const EMAIL_CONFIG = [
     'from_name' => 'JOMPSON Cursos',
