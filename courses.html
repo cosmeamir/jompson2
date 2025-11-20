@@ -167,6 +167,23 @@
         box-shadow: 0 26px 60px rgba(15, 23, 42, 0.08);
       }
 
+      .course-cover {
+        width: 100%;
+        border-radius: 18px;
+        overflow: hidden;
+        margin-bottom: 24px;
+        background: #f1f5f9;
+        border: 1px solid var(--courses-border);
+      }
+
+      .course-cover img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+      }
+
       .course-detail-head {
         margin-bottom: 28px;
       }
@@ -258,6 +275,18 @@
         border-radius: 12px;
         background: rgba(201, 24, 74, 0.12);
         color: var(--courses-primary);
+        font-weight: 600;
+        margin-bottom: 18px;
+      }
+
+      .course-detail-side .course-payment-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 12px;
+        background: rgba(35, 62, 98, 0.08);
+        color: #0f172a;
         font-weight: 600;
         margin-bottom: 18px;
       }
@@ -656,6 +685,13 @@
                   </div>
                 </div>
                 <div class="form-group mt-3">
+                  <label class="form-label" for="plano-pagamento">Plano de pagamento*</label>
+                  <select class="form-control" id="plano-pagamento" name="plano_pagamento" required>
+                    <option value="">Selecciona um curso para ver as opções</option>
+                  </select>
+                  <span class="form-help">O número de prestações é definido por cada curso.</span>
+                </div>
+                <div class="form-group mt-3">
                   <label class="form-label" for="comprovativo">Comprovativo da transferência*</label>
                   <input type="file" class="form-control" id="comprovativo" name="comprovativo" accept=".pdf,.jpg,.jpeg,.png" required>
                   <span class="form-help">Formatos aceites: PDF, JPG ou PNG com tamanho máximo de 1&nbsp;MB.</span>
@@ -771,8 +807,10 @@
         const formStatus = document.getElementById('form-status');
         const form = document.getElementById('preinscricao-form');
         const paymentProofInput = document.getElementById('comprovativo');
+        const paymentPlanSelect = document.getElementById('plano-pagamento');
         const successPopup = document.getElementById('success-popup');
         const closePopupButton = document.getElementById('close-popup');
+        const courseCoverPlaceholder = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9IlNlbSBpbWFnZW0iPjxyZWN0IHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIiByeD0iMjQiIGZpbGw9IiNmMWY1ZjkiIHN0cm9rZT0iI2Q3ZGVlMyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iMC4zZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIGZpbGw9IiM3Yjc4OTQiIGZvbnQtc2l6ZT0iMjIiIGZvbnQtZmFtaWx5PSdOdW5pdG8sIHNhbnMtc2VyaWYnPiBDYXBhIGRvIGN1cnNvIDwvdGV4dD48L3N2Zz4=';
 
         let activeCourseId = '';
         let courses = [];
@@ -841,6 +879,33 @@
           return text.split(/\r?\n/).map(item => item.trim()).filter(Boolean);
         }
 
+        function normaliseInstallments(value) {
+          const parsed = Number(value);
+          if (!Number.isFinite(parsed)) {
+            return 1;
+          }
+          if (parsed < 1) return 1;
+          if (parsed > 4) return 4;
+          return Math.round(parsed);
+        }
+
+        function fillPaymentPlanOptions(installments) {
+          if (!paymentPlanSelect) {
+            return;
+          }
+
+          const total = normaliseInstallments(installments);
+          paymentPlanSelect.disabled = false;
+          paymentPlanSelect.innerHTML = '';
+
+          for (let i = 1; i <= total; i++) {
+            const option = document.createElement('option');
+            option.value = String(i);
+            option.textContent = i === 1 ? '1 prestação' : `${i} prestações`;
+            paymentPlanSelect.appendChild(option);
+          }
+        }
+
         function renderCourse(course) {
           detailContainer.innerHTML = '';
           if (!course) {
@@ -866,12 +931,29 @@
             if (paymentProofInput) {
               paymentProofInput.value = '';
             }
+            if (paymentPlanSelect) {
+              paymentPlanSelect.innerHTML = '<option value="">Selecciona um curso para ver as opções</option>';
+              paymentPlanSelect.disabled = true;
+            }
             return;
           }
 
           formCard.style.display = '';
 
           const priceValue = (course.price || '').toString().trim();
+          const coverWrapper = document.createElement('div');
+          coverWrapper.className = 'course-cover';
+          const coverImage = document.createElement('img');
+          coverImage.loading = 'lazy';
+          coverImage.alt = course.title || 'Imagem do curso';
+          const coverSource = (course.cover_image || '').toString().trim() || courseCoverPlaceholder;
+          coverImage.src = coverSource;
+          coverImage.onerror = () => {
+            coverImage.onerror = null;
+            coverImage.src = courseCoverPlaceholder;
+          };
+          coverWrapper.appendChild(coverImage);
+          detailContainer.appendChild(coverWrapper);
 
           const head = document.createElement('div');
           head.className = 'course-detail-head';
@@ -916,6 +998,15 @@
             priceChip.appendChild(value);
             side.appendChild(priceChip);
           }
+
+          const paymentInstallments = normaliseInstallments(course.installments);
+          const paymentChip = document.createElement('div');
+          paymentChip.className = 'course-payment-chip';
+          const installmentsLabel = paymentInstallments === 1
+            ? 'Pagamento em 1 prestação'
+            : `Pagamento em até ${paymentInstallments} prestações`;
+          paymentChip.innerHTML = '<span class="ion-ios-card mr-1"></span><span>' + escapeText(installmentsLabel) + '</span>';
+          side.appendChild(paymentChip);
 
           const overviewSection = buildParagraphs(course.overview);
           if (overviewSection) {
@@ -982,6 +1073,9 @@
           }
           if (paymentProofInput) {
             paymentProofInput.value = '';
+          }
+          if (paymentPlanSelect) {
+            fillPaymentPlanOptions(course.installments);
           }
         }
 
@@ -1171,6 +1265,12 @@
               return;
             }
 
+            if (!formData.get('plano_pagamento')) {
+              formStatus.textContent = 'Escolhe o número de prestações disponível para este curso.';
+              formStatus.classList.add('error');
+              return;
+            }
+
             const proofFile = paymentProofInput && paymentProofInput.files ? paymentProofInput.files[0] : null;
             if (!proofFile) {
               formStatus.textContent = 'Anexa o comprovativo da transferência.';
@@ -1230,6 +1330,9 @@
                 if (coursePriceInput) {
                   coursePriceInput.value = currentCourse.price || '';
                 }
+                if (paymentPlanSelect) {
+                  fillPaymentPlanOptions(currentCourse.installments);
+                }
               }
               if (paymentProofInput) {
                 paymentProofInput.value = '';
@@ -1288,6 +1391,8 @@
               normalized.subcategory_id = courseSubcategoryId;
               normalized.category = mappedCategory || 'Outros Programas';
               normalized.subcategory = mappedSubcategory || 'Geral';
+              normalized.cover_image = (course.cover_image || '').toString();
+              normalized.installments = normaliseInstallments(course.installments);
 
               return normalized;
             }) : [];
