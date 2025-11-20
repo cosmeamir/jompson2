@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8">
+    <title>Cursos | JOMPSON</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+      :root {
+        --courses-primary: #233e62;
+        --courses-primary-soft: #2233e62;
+        --courses-border: rgba(15, 23, 42, 0.08);
+      }
+
+      .hero-wrap-2.courses-hero {
+        background-image: url('images/bg_3.jpg');
+      }
+
+      .courses-wrapper {
+        background: #f7f8fc;
+        padding-top: 4rem;
+        padding-bottom: 5rem;
+      }
+
+      .courses-shell {
+        display: grid;
+        grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
+        gap: 32px;
+      }
+
+      .courses-menu {
+        background: #ffffff;
+        border-radius: 18px;
+        box-shadow: 0 24px 50px rgba(15, 23, 42, 0.08);
+        padding: 24px 20px;
+        max-height: 100%;
+      }
+
+      .courses-menu__title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 18px;
+        color: #0f172a;
+      }
+
+      .courses-menu__category-block + .courses-menu__category-block {
+        margin-top: 12px;
+      }
+
+      .courses-menu__category-toggle,
+      .courses-menu__subcategory-toggle {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 12px 14px;
+        border: none;
+        border-radius: 12px;
+        background: transparent;
+        font-weight: 600;
+        color: #0f172a;
+        transition: background 0.2s ease, transform 0.2s ease;
+      }
+
+      .courses-menu__category-block.is-open > .courses-menu__category-toggle,
+      .courses-menu__subcategory-block.is-open > .courses-menu__subcategory-toggle {
+        background: var(--courses-primary-soft);
+        color: var(--courses-primary);
+      }
+
+      .courses-menu__category-toggle::after,
+      .courses-menu__subcategory-toggle::after {
+        content: '\25BC';
+        font-size: 12px;
+        margin-left: 12px;
+        transition: transform 0.2s ease;
+      }
+
+      .courses-menu__category-block:not(.is-open) > .courses-menu__category-toggle::after,
+      .courses-menu__subcategory-block:not(.is-open) > .courses-menu__subcategory-toggle::after {
+        transform: rotate(-90deg);
+      }
+
+      .courses-menu__subcategories,
+      .courses-menu__course-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .courses-menu__subcategories {
+        margin-top: 8px;
+        padding-left: 8px;
+        border-left: 2px solid var(--courses-border);
+      }
+
+      .courses-menu__subcategory-block {
+        margin-bottom: 10px;
+      }
+
+      .courses-menu__category-block > .courses-menu__subcategories {
+        display: none;
+      }
+
+      .courses-menu__category-block.is-open > .courses-menu__subcategories {
+        display: block;
+      }
+
+      .courses-menu__subcategory-block > .courses-menu__course-list {
+        display: none;
+      }
+
+      .courses-menu__subcategory-block.is-open > .courses-menu__course-list {
+        display: block;
+      }
+
+      .courses-menu__course-list li {
+        margin: 4px 0;
+      }
+
+      .courses-menu__course-btn {
+        width: 100%;
+        text-align: left;
+        border: none;
+        background: transparent;
+        padding: 10px 12px;
+        border-radius: 10px;
+        color: #1f2937;
+        font-size: 15px;
+        font-weight: 500;
+        transition: background 0.2s ease, color 0.2s ease;
+      }
+
+      .courses-menu__course-btn:hover {
+        background: rgba(15, 23, 42, 0.06);
+      }
+
+      .courses-menu__course-btn.is-active {
+        background: var(--courses-primary);
+        color: #ffffff;
+        box-shadow: 0 12px 24px rgba(201, 24, 74, 0.25);
+      }
+
+      .courses-main {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+
+      .course-detail-card {
+        background: #ffffff;
+        border-radius: 22px;
+        padding: 32px;
+        box-shadow: 0 26px 60px rgba(15, 23, 42, 0.08);
+      }
+
+      .course-detail-head {
+        margin-bottom: 28px;
+      }
+
+      .course-detail-head .course-category {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--courses-primary-soft);
+        color: var(--courses-primary);
+        padding: 6px 14px;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 13px;
+        margin-bottom: 14px;
+      }
+
+      .course-detail-head h2 {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #0f172a;
+      }
+
+      .course-detail-head p {
+        font-size: 16px;
+        margin: 0;
+        color: #475569;
+      }
+
+      .course-price-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border-radius: 999px;
+        background: var(--courses-primary-soft);
+        color: var(--courses-primary);
+        font-weight: 700;
+        font-size: 15px;
+        margin-top: 12px;
+      }
+
+      .course-detail-columns {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(220px, 260px);
+        gap: 26px;
+      }
+
+      .course-detail-section + .course-detail-section {
+        margin-top: 22px;
+      }
+
+      .course-detail-section h3 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 12px;
+      }
+
+      .course-detail-section p {
+        font-size: 15px;
+        color: #475569;
+        line-height: 1.65;
+      }
+
+      .course-detail-section ul {
+        margin: 0;
+        padding-left: 20px;
+        color: #1f2937;
+      }
+
+      .course-detail-section ul li {
+        margin-bottom: 8px;
+      }
+
+      .course-detail-side {
+        background: #f8faff;
+        border-radius: 18px;
+        padding: 20px 22px;
+        border: 1px solid var(--courses-border);
+      }
+
+      .course-detail-side .course-price-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 12px;
+        background: rgba(201, 24, 74, 0.12);
+        color: var(--courses-primary);
+        font-weight: 600;
+        margin-bottom: 18px;
+      }
+
+      .course-detail-side .course-price-chip strong {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #9f1239;
+      }
+
+      .course-detail-side .course-price-chip span {
+        font-size: 16px;
+        font-weight: 700;
+        color: #b91c1c;
+      }
+
+      .course-detail-side h4 {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: #0f172a;
+      }
+
+      .course-detail-side ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .course-detail-side li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 14px;
+        color: #334155;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+      }
+
+      .course-detail-side li:last-child {
+        border-bottom: none;
+      }
+
+      .course-detail-side a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 16px;
+        color: var(--courses-primary);
+        font-weight: 600;
+      }
+
+      .course-form-card {
+        background: #ffffff;
+        border-radius: 22px;
+        box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+        padding: 32px;
+      }
+
+      .course-form-card h3 {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: #0f172a;
+      }
+
+      .course-form-card p {
+        color: #475569;
+        margin-bottom: 24px;
+      }
+
+      .course-form-grid {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .course-form-grid .form-group {
+        margin-bottom: 0;
+      }
+
+      .course-form-card .form-control,
+      .course-form-card textarea {
+        border-radius: 12px;
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        padding: 12px 14px;
+        font-size: 15px;
+        color: #0f172a;
+      }
+
+      .course-form-card textarea {
+        min-height: 120px;
+      }
+
+      .course-form-card .form-label {
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 6px;
+      }
+
+      .course-form-card .radio-group {
+        display: grid;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .course-form-card .radio-option {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        border-radius: 12px;
+      }
+
+      .course-form-card .radio-option input[type="radio"] {
+        margin-top: 2px;
+      }
+
+      .course-form-actions {
+        margin-top: 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .course-form-card button[type="submit"] {
+        border-radius: 999px;
+        padding: 12px 28px;
+        background: var(--courses-primary);
+        border: none;
+        color: #ffffff;
+        font-weight: 700;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .course-form-card button[type="submit"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 18px 30px rgba(201, 24, 74, 0.3);
+      }
+
+      .course-form-card .form-help {
+        display: block;
+        font-size: 13px;
+        color: #6b7285;
+        margin-top: 6px;
+      }
+
+      .form-status {
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .form-status.error {
+        color: #dc2626;
+      }
+
+      .form-status.success {
+        color: #16a34a;
+      }
+
+      .course-popup {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.55);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        padding: 20px;
+      }
+
+      .course-popup.is-visible {
+        display: flex;
+        animation: fadeIn 0.25s ease;
+      }
+
+      .course-popup__content {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 32px 36px;
+        text-align: center;
+        box-shadow: 0 32px 60px rgba(15, 23, 42, 0.2);
+        animation: popUp 0.35s ease;
+      }
+
+      .course-popup__icon {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 16px;
+        border-radius: 50%;
+        background: var(--courses-primary-soft);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        color: var(--courses-primary);
+      }
+
+      .course-popup__content h4 {
+        font-size: 22px;
+        margin-bottom: 10px;
+        color: #0f172a;
+      }
+
+      .course-popup__content p {
+        color: #475569;
+        margin-bottom: 18px;
+      }
+
+      .course-popup__content button {
+        border: none;
+        background: var(--courses-primary);
+        color: #ffffff;
+        padding: 10px 20px;
+        border-radius: 999px;
+        font-weight: 600;
+      }
+
+      .course-empty-state {
+        text-align: center;
+        padding: 40px 20px;
+        color: #475569;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      @keyframes popUp {
+        from { transform: translateY(12px) scale(0.96); opacity: 0; }
+        to { transform: translateY(0) scale(1); opacity: 1; }
+      }
+
+      @media (max-width: 991px) {
+        .courses-shell {
+          grid-template-columns: 1fr;
+        }
+
+        .course-detail-columns {
+          grid-template-columns: 1fr;
+        }
+
+        .courses-menu {
+          max-height: none;
+        }
+      }
+
+      @media (max-width: 575px) {
+        .course-detail-card,
+        .course-form-card {
+          padding: 24px;
+        }
+
+        .course-detail-head h2 {
+          font-size: 24px;
+        }
+
+        .courses-menu__course-btn {
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-top navbar-light">
+      <div class="container">
+        <div class="row no-gutters d-flex align-items-center align-items-stretch">
+          <div class="col-md-4 d-flex align-items-center py-4">
+            <a class="navbar-brand" href="index">JOMPSON </a>
+          </div>
+          <div class="col-lg-8 d-block">
+            <div class="row d-flex">
+              <div class="col-md d-flex topper align-items-center align-items-stretch py-md-4">
+                <div class="icon d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
+                <div class="text">
+                  <span>E-mail</span>
+                  <span>geral@jompson.com</span>
+                </div>
+              </div>
+              <div class="col-md d-flex topper align-items-center align-items-stretch py-md-4">
+                <div class="icon d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
+                <div class="text">
+                  <span>Contactos:</span>
+                  <span>946980402 / 957055783</span>
+                </div>
+              </div>
+              <div class="col-md topper d-flex align-items-center justify-content-end">
+                <p class="mb-0 d-block">
+                  <a href="https://wa.link/2vv9fk" class="btn py-2 px-3 btn-primary"><span>Solicitar Consultoria</span></a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ftco-navbar-light" id="ftco-navbar">
+      <div class="container d-flex align-items-center">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="oi oi-menu"></span> Menu
+        </button>
+        <form action="#" class="searchform order-lg-last">
+          <div class="form-group d-flex">
+            <input type="text" class="form-control pl-3" placeholder="Pesquisar">
+            <button type="submit" class="form-control search"><span class="ion-ios-search"></span></button>
+          </div>
+        </form>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a href="index" class="nav-link pl-0">Home</a></li>
+            <li class="nav-item"><a href="about" class="nav-link">Sobre Nós</a></li>
+            <li class="nav-item"><a href="project" class="nav-link">Projectos</a></li>
+            <li class="nav-item"><a href="services" class="nav-link">Serviços</a></li>
+            <li class="nav-item active"><a href="courses" class="nav-link">Cursos</a></li>
+            <li class="nav-item"><a href="blog-single" class="nav-link">Blog</a></li>
+            <li class="nav-item"><a href="contact" class="nav-link">Contactos</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+   
+
+    <section class="ftco-section courses-wrapper">
+      <div class="container">
+        <div class="courses-shell">
+          <aside class="courses-menu" id="courses-menu">
+            <div class="courses-menu__title">Catálogo de cursos</div>
+            <div class="courses-menu__empty course-empty-state" id="courses-menu-empty" style="display: none;">
+              Estamos a preparar novos programas. Volta em breve!
+            </div>
+          </aside>
+          <div class="courses-main">
+            <article class="course-detail-card" id="course-detail">
+              <div class="course-empty-state">
+                Selecciona um curso no menu ao lado para veres os detalhes completos.
+              </div>
+            </article>
+            <section class="course-form-card" id="course-form-card">
+              <h3>Formulário de Pré-inscrição</h3>
+              <p>Preenche os teus dados para reservar vaga. Entraremos em contacto para confirmar a inscrição e partilhar todas as informações logísticas.</p>
+              <form id="preinscricao-form" method="post" action="submit_course_registration.php" enctype="multipart/form-data" novalidate>
+                <input type="hidden" id="course-id-field" name="course_id">
+                <input type="hidden" id="course-price-field" name="course_price">
+                <div class="course-form-grid">
+                  <div class="form-group">
+                    <label class="form-label" for="empresa">Empresa</label>
+                    <input type="text" class="form-control" id="empresa" name="empresa" placeholder="Nome da empresa">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="nome">Nome*</label>
+                    <input type="text" class="form-control" id="nome" name="nome" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="pais">País</label>
+                    <input type="text" class="form-control" id="pais" name="pais" placeholder="Angola">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="email">Email*</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="telefone">Telefone*</label>
+                    <input type="tel" class="form-control" id="telefone" name="telefone" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="documento">Nº do BI ou NIF*</label>
+                    <input type="text" class="form-control" id="documento" name="documento" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="profissao">Profissão</label>
+                    <input type="text" class="form-control" id="profissao" name="profissao" placeholder="Ex.: Contabilista">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="curso">Curso</label>
+                    <input type="text" class="form-control" id="curso" name="curso" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="preco-curso">Preço</label>
+                    <input type="text" class="form-control" id="preco-curso" readonly>
+                  </div>
+                </div>
+                <div class="form-group mt-4">
+                  <span class="form-label">Forma de Pagamento*</span>
+                  <div class="radio-group" id="forma-pagamento-group">
+                    <label class="radio-option">
+                      <input type="radio" name="forma_pagamento" value="Transferência Bancária" required checked>
+                      <span>Transferência Bancária</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group mt-3">
+                  <label class="form-label" for="comprovativo">Comprovativo da transferência*</label>
+                  <input type="file" class="form-control" id="comprovativo" name="comprovativo" accept=".pdf,.jpg,.jpeg,.png" required>
+                  <span class="form-help">Formatos aceites: PDF, JPG ou PNG com tamanho máximo de 1&nbsp;MB.</span>
+                </div>
+                <div class="form-group mt-3">
+                  <label class="form-label" for="mensagem">Mensagem</label>
+                  <textarea class="form-control" id="mensagem" name="mensagem" placeholder="Partilha alguma informação adicional ou dúvidas."></textarea>
+                </div>
+                <div class="course-form-actions">
+                  <button type="submit">Enviar pré-inscrição</button>
+                  <span class="form-status" id="form-status" role="status"></span>
+                </div>
+              </form>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="ftco-footer ftco-bg-dark ftco-section">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+              <h2 class="logo"><a href="#">Jompson &amp; Consultores</a></h2>
+              <p>Parceiros estratégicos para o crescimento sustentado da sua empresa, com foco em contabilidade, consultoria e formação.</p>
+              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4 ml-md-4">
+              <h2 class="ftco-heading-2">Explorar</h2>
+              <ul class="list-unstyled">
+                <li><a href="about" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-2"></span>Sobre Nós</a></li>
+                <li><a href="services" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-2"></span>Serviços</a></li>
+                <li><a href="project" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-2"></span>Projectos</a></li>
+                <li><a href="courses" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-2"></span>Cursos</a></li>
+                <li><a href="blog" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-2"></span>Blog</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">Contactos</h2>
+              <div class="block-23 mb-3">
+                <ul>
+                  <li><span class="icon icon-map-marker"></span><span class="text">Luanda, Angola</span></li>
+                  <li><a href="#"><span class="icon icon-phone"></span><span class="text">946980402 / 957055783</span></a></li>
+                  <li><a href="#"><span class="icon icon-envelope"></span><span class="text">geral@jompson.com</span></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">Newsletter</h2>
+              <p>Recebe actualizações sobre novos cursos, artigos e eventos exclusivos.</p>
+              <form action="#" class="subscribe-form">
+                <div class="form-group">
+                  <input type="email" class="form-control mb-2 text-center" placeholder="Email">
+                  <input type="submit" value="Subscrever" class="form-control submit px-3">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <p>
+             Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Desenvolvido e Mantido por <a href="https://codigocosme.com" target="_blank">Código Cosme SU Lda</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div class="course-popup" id="success-popup" aria-live="assertive" aria-hidden="true">
+      <div class="course-popup__content">
+        <div class="course-popup__icon">✓</div>
+        <h4>Inscrição feita com sucesso!</h4>
+        <p>Iremos confirmar a tua participação por email. Obrigado pela confiança.</p>
+        <button type="button" id="close-popup">Fechar</button>
+      </div>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/scrollax.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+      (function() {
+        const menuContainer = document.getElementById('courses-menu');
+        const menuEmpty = document.getElementById('courses-menu-empty');
+        const detailContainer = document.getElementById('course-detail');
+        const courseInput = document.getElementById('curso');
+        const courseIdField = document.getElementById('course-id-field');
+        const coursePriceField = document.getElementById('course-price-field');
+        const coursePriceInput = document.getElementById('preco-curso');
+        const formCard = document.getElementById('course-form-card');
+        const formStatus = document.getElementById('form-status');
+        const form = document.getElementById('preinscricao-form');
+        const paymentProofInput = document.getElementById('comprovativo');
+        const successPopup = document.getElementById('success-popup');
+        const closePopupButton = document.getElementById('close-popup');
+
+        let activeCourseId = '';
+        let courses = [];
+        let courseCategories = [];
+        let courseSubcategories = [];
+        const categoryMap = new Map();
+        const subcategoryMap = new Map();
+        let autoCloseTimeout = null;
+
+        function getCourseById(id) {
+          return courses.find(item => item.id === id);
+        }
+
+        function escapeText(text) {
+          const div = document.createElement('div');
+          div.textContent = text;
+          return div.innerHTML;
+        }
+
+        function buildList(text, title) {
+          if (!text) {
+            return null;
+          }
+          const items = text.split(/\r?\n/).map(item => item.trim()).filter(Boolean);
+          if (!items.length) {
+            return null;
+          }
+
+          const section = document.createElement('div');
+          section.className = 'course-detail-section';
+          const heading = document.createElement('h3');
+          heading.textContent = title;
+          const ul = document.createElement('ul');
+          items.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = item;
+            ul.appendChild(li);
+          });
+          section.appendChild(heading);
+          section.appendChild(ul);
+          return section;
+        }
+
+        function buildParagraphs(text) {
+          if (!text) {
+            return null;
+          }
+          const paragraphs = text.split(/\n\s*\n|\r\n\r\n/).map(item => item.trim()).filter(Boolean);
+          if (!paragraphs.length) {
+            return null;
+          }
+          const section = document.createElement('div');
+          section.className = 'course-detail-section';
+          paragraphs.forEach(paragraph => {
+            const p = document.createElement('p');
+            p.textContent = paragraph;
+            section.appendChild(p);
+          });
+          return section;
+        }
+
+        function buildDetails(text) {
+          if (!text) {
+            return [];
+          }
+          return text.split(/\r?\n/).map(item => item.trim()).filter(Boolean);
+        }
+
+        function renderCourse(course) {
+          detailContainer.innerHTML = '';
+          if (!course) {
+            const empty = document.createElement('div');
+            empty.className = 'course-empty-state';
+            empty.textContent = courses.length
+              ? 'Selecciona uma categoria e depois um curso para veres os detalhes.'
+              : 'Não existem cursos disponíveis neste momento.';
+            detailContainer.appendChild(empty);
+            formCard.style.display = 'none';
+            if (courseInput) {
+              courseInput.value = '';
+            }
+            if (courseIdField) {
+              courseIdField.value = '';
+            }
+            if (coursePriceField) {
+              coursePriceField.value = '';
+            }
+            if (coursePriceInput) {
+              coursePriceInput.value = '';
+            }
+            if (paymentProofInput) {
+              paymentProofInput.value = '';
+            }
+            return;
+          }
+
+          formCard.style.display = '';
+
+          const priceValue = (course.price || '').toString().trim();
+
+          const head = document.createElement('div');
+          head.className = 'course-detail-head';
+
+          const badge = document.createElement('div');
+          badge.className = 'course-category';
+          badge.textContent = course.category + ' • ' + course.subcategory;
+          head.appendChild(badge);
+
+          const title = document.createElement('h2');
+          title.textContent = course.title;
+          head.appendChild(title);
+
+          if (course.headline) {
+            const headline = document.createElement('p');
+            headline.textContent = course.headline;
+            head.appendChild(headline);
+          }
+
+          if (priceValue) {
+            const priceTag = document.createElement('div');
+            priceTag.className = 'course-price-tag';
+            priceTag.textContent = priceValue;
+            head.appendChild(priceTag);
+          }
+
+          const columns = document.createElement('div');
+          columns.className = 'course-detail-columns';
+
+          const main = document.createElement('div');
+          const side = document.createElement('aside');
+          side.className = 'course-detail-side';
+
+          if (priceValue) {
+            const priceChip = document.createElement('div');
+            priceChip.className = 'course-price-chip';
+            const label = document.createElement('strong');
+            label.textContent = 'Preço';
+            const value = document.createElement('span');
+            value.textContent = priceValue;
+            priceChip.appendChild(label);
+            priceChip.appendChild(value);
+            side.appendChild(priceChip);
+          }
+
+          const overviewSection = buildParagraphs(course.overview);
+          if (overviewSection) {
+            main.appendChild(overviewSection);
+          }
+
+          const generalSection = buildList(course.general_objectives, 'Objectivo Geral');
+          if (generalSection) {
+            main.appendChild(generalSection);
+          }
+
+          const specificSection = buildList(course.specific_objectives, 'Objectivos Específicos');
+          if (specificSection) {
+            main.appendChild(specificSection);
+          }
+
+          const contentsSection = buildList(course.contents, 'Conteúdos do Programa');
+          if (contentsSection) {
+            main.appendChild(contentsSection);
+          }
+
+          const sideTitle = document.createElement('h4');
+          sideTitle.textContent = 'Informações rápidas';
+          side.appendChild(sideTitle);
+
+          const detailItems = buildDetails(course.details);
+          if (detailItems.length) {
+            const list = document.createElement('ul');
+            detailItems.forEach(item => {
+              const li = document.createElement('li');
+              li.innerHTML = '<span>•</span><span>' + escapeText(item) + '</span>';
+              list.appendChild(li);
+            });
+            side.appendChild(list);
+          }
+
+          if (course.pdf_url) {
+            const link = document.createElement('a');
+            link.href = course.pdf_url;
+            link.target = '_blank';
+            link.rel = 'noopener';
+            link.innerHTML = '<span class="ion-ios-download mr-1"></span>Descarregar ficha completa';
+            side.appendChild(link);
+          }
+
+          columns.appendChild(main);
+          columns.appendChild(side);
+
+          detailContainer.appendChild(head);
+          detailContainer.appendChild(columns);
+
+          activeCourseId = course.id;
+          if (courseInput) {
+            courseInput.value = course.title;
+          }
+          if (courseIdField) {
+            courseIdField.value = course.id || '';
+          }
+          if (coursePriceField) {
+            coursePriceField.value = priceValue;
+          }
+          if (coursePriceInput) {
+            coursePriceInput.value = priceValue;
+          }
+          if (paymentProofInput) {
+            paymentProofInput.value = '';
+          }
+        }
+
+        function clearMenu() {
+          const existingBlocks = menuContainer.querySelectorAll('.courses-menu__category-block');
+          existingBlocks.forEach(block => block.remove());
+        }
+
+        function buildMenu(data) {
+          clearMenu();
+          if (!data.length) {
+            menuEmpty.style.display = '';
+            renderCourse(null);
+            return;
+          }
+          menuEmpty.style.display = 'none';
+
+          const grouped = {};
+          data.forEach(course => {
+            const category = course.category || 'Outros Programas';
+            const subcategory = course.subcategory || 'Geral';
+            grouped[category] = grouped[category] || {};
+            grouped[category][subcategory] = grouped[category][subcategory] || [];
+            grouped[category][subcategory].push(course);
+          });
+
+          const categories = Object.keys(grouped).sort((a, b) => a.localeCompare(b, 'pt', { sensitivity: 'base' }));
+          categories.forEach((category, categoryIndex) => {
+            const categoryBlock = document.createElement('div');
+            categoryBlock.className = 'courses-menu__category-block';
+
+            const categoryButton = document.createElement('button');
+            categoryButton.type = 'button';
+            categoryButton.className = 'courses-menu__category-toggle';
+            categoryButton.textContent = category;
+            categoryButton.addEventListener('click', () => {
+              const willOpen = !categoryBlock.classList.contains('is-open');
+              if (willOpen) {
+                categoryBlock.classList.add('is-open');
+              } else {
+                categoryBlock.classList.remove('is-open');
+                subWrapper.querySelectorAll('.courses-menu__subcategory-block').forEach(block => block.classList.remove('is-open'));
+              }
+            });
+            categoryBlock.appendChild(categoryButton);
+
+            const subWrapper = document.createElement('div');
+            subWrapper.className = 'courses-menu__subcategories';
+
+            const subcategories = Object.keys(grouped[category]).sort((a, b) => a.localeCompare(b, 'pt', { sensitivity: 'base' }));
+            subcategories.forEach((subcategory, subIndex) => {
+              const subBlock = document.createElement('div');
+              subBlock.className = 'courses-menu__subcategory-block';
+
+              const subButton = document.createElement('button');
+              subButton.type = 'button';
+              subButton.className = 'courses-menu__subcategory-toggle';
+              subButton.textContent = subcategory;
+              subButton.addEventListener('click', () => {
+                const willOpen = !subBlock.classList.contains('is-open');
+                if (willOpen) {
+                  subWrapper.querySelectorAll('.courses-menu__subcategory-block').forEach(block => {
+                    if (block !== subBlock) {
+                      block.classList.remove('is-open');
+                    }
+                  });
+                }
+                subBlock.classList.toggle('is-open');
+                if (!willOpen) {
+                  return;
+                }
+
+              });
+
+              const list = document.createElement('ul');
+              list.className = 'courses-menu__course-list';
+
+              const sortedCourses = grouped[category][subcategory].slice().sort((a, b) => a.title.localeCompare(b.title, 'pt', { sensitivity: 'base' }));
+              sortedCourses.forEach((course, courseIndex) => {
+                const listItem = document.createElement('li');
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'courses-menu__course-btn';
+                button.textContent = course.title;
+                button.dataset.courseId = course.id;
+                button.addEventListener('click', () => {
+                  setActiveCourse(course.id);
+                });
+                listItem.appendChild(button);
+                list.appendChild(listItem);
+
+              });
+
+              subBlock.appendChild(subButton);
+              subBlock.appendChild(list);
+              subWrapper.appendChild(subBlock);
+            });
+
+            categoryBlock.appendChild(subWrapper);
+            menuContainer.appendChild(categoryBlock);
+          });
+        }
+
+        function highlightActiveCourse() {
+          const buttons = menuContainer.querySelectorAll('.courses-menu__course-btn');
+          buttons.forEach(button => {
+            if (button.dataset.courseId === activeCourseId) {
+              button.classList.add('is-active');
+              const subBlock = button.closest('.courses-menu__subcategory-block');
+              if (subBlock) {
+                subBlock.classList.add('is-open');
+              }
+              const categoryBlock = button.closest('.courses-menu__category-block');
+              if (categoryBlock) {
+                categoryBlock.classList.add('is-open');
+              }
+            } else {
+              button.classList.remove('is-active');
+            }
+          });
+        }
+
+        function setActiveCourse(courseId) {
+          let course = getCourseById(courseId);
+          if (!course) {
+            if (courses.length) {
+              course = courses[0];
+              activeCourseId = course.id;
+            } else {
+              renderCourse(null);
+              highlightActiveCourse();
+              return;
+            }
+          }
+          renderCourse(course);
+          highlightActiveCourse();
+        }
+
+        function showPopup() {
+          if (!successPopup) {
+            return;
+          }
+          successPopup.classList.add('is-visible');
+          successPopup.setAttribute('aria-hidden', 'false');
+          if (autoCloseTimeout) {
+            clearTimeout(autoCloseTimeout);
+          }
+          autoCloseTimeout = setTimeout(hidePopup, 4000);
+        }
+
+        function hidePopup() {
+          if (!successPopup) {
+            return;
+          }
+          successPopup.classList.remove('is-visible');
+          successPopup.setAttribute('aria-hidden', 'true');
+        }
+
+        if (closePopupButton) {
+          closePopupButton.addEventListener('click', hidePopup);
+        }
+
+        if (successPopup) {
+          successPopup.addEventListener('click', event => {
+            if (event.target === successPopup) {
+              hidePopup();
+            }
+          });
+        }
+
+        if (form) {
+          form.addEventListener('submit', async event => {
+            event.preventDefault();
+            formStatus.textContent = '';
+            formStatus.className = 'form-status';
+
+            const formData = new FormData(form);
+            if (!formData.get('course_id') || !formData.get('curso')) {
+              formStatus.textContent = 'Selecciona um curso antes de submeter.';
+              formStatus.classList.add('error');
+              return;
+            }
+
+            if (!formData.get('forma_pagamento')) {
+              formStatus.textContent = 'Selecciona a forma de pagamento preferencial.';
+              formStatus.classList.add('error');
+              return;
+            }
+
+            const proofFile = paymentProofInput && paymentProofInput.files ? paymentProofInput.files[0] : null;
+            if (!proofFile) {
+              formStatus.textContent = 'Anexa o comprovativo da transferência.';
+              formStatus.classList.add('error');
+              return;
+            }
+
+            if (proofFile.size > 1048576) {
+              formStatus.textContent = 'O comprovativo deve ter no máximo 1MB.';
+              formStatus.classList.add('error');
+              return;
+            }
+
+            const allowedTypes = ['application/pdf', 'application/x-pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+            if (allowedTypes.indexOf(proofFile.type) === -1) {
+              formStatus.textContent = 'O comprovativo deve ser PDF, JPG ou PNG.';
+              formStatus.classList.add('error');
+              return;
+            }
+
+            try {
+              const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                  'Accept': 'application/json'
+                }
+              });
+
+              const rawText = await response.text();
+              let payload = {};
+
+              if (rawText) {
+                try {
+                  payload = JSON.parse(rawText);
+                } catch (parseError) {
+                  throw new Error('Recebemos uma resposta inesperada do servidor. Tenta novamente em instantes.');
+                }
+              }
+
+              if (!response.ok || !payload.success) {
+                throw new Error(payload.error || 'Não foi possível enviar a inscrição.');
+              }
+
+              form.reset();
+              const currentCourse = getCourseById(activeCourseId);
+              if (currentCourse) {
+                if (courseInput) {
+                  courseInput.value = currentCourse.title || '';
+                }
+                if (courseIdField) {
+                  courseIdField.value = currentCourse.id || '';
+                }
+                if (coursePriceField) {
+                  coursePriceField.value = currentCourse.price || '';
+                }
+                if (coursePriceInput) {
+                  coursePriceInput.value = currentCourse.price || '';
+                }
+              }
+              if (paymentProofInput) {
+                paymentProofInput.value = '';
+              }
+              formStatus.textContent = payload.emailSent ? 'Inscrição enviada com sucesso.' : 'Inscrição registada. Não foi possível enviar o email automático, entraremos em contacto.';
+              formStatus.classList.add('success');
+              showPopup();
+            } catch (error) {
+              formStatus.textContent = (error && error.message) ? error.message : 'Erro ao enviar a inscrição. Tente novamente.';
+              formStatus.classList.add('error');
+            }
+          });
+        }
+
+        fetch('data/site-data.json', { cache: 'no-store' })
+          .then(response => response.json())
+          .then(data => {
+            courseCategories = Array.isArray(data.course_categories) ? data.course_categories.slice() : [];
+            courseSubcategories = Array.isArray(data.course_subcategories) ? data.course_subcategories.slice() : [];
+
+            categoryMap.clear();
+            subcategoryMap.clear();
+
+            courseCategories.sort((a, b) => (a.name || '').localeCompare(b.name || '', 'pt', { sensitivity: 'base' }));
+            courseCategories.forEach(category => {
+              if (category && category.id) {
+                categoryMap.set(category.id, category.name || '');
+              }
+            });
+
+            courseSubcategories.sort((a, b) => {
+              const categoryA = categoryMap.get(a.category_id || '') || '';
+              const categoryB = categoryMap.get(b.category_id || '') || '';
+              const categoryCompare = categoryA.localeCompare(categoryB, 'pt', { sensitivity: 'base' });
+              if (categoryCompare !== 0) {
+                return categoryCompare;
+              }
+              return (a.name || '').localeCompare(b.name || '', 'pt', { sensitivity: 'base' });
+            });
+
+            courseSubcategories.forEach(subcategory => {
+              if (subcategory && subcategory.id) {
+                subcategoryMap.set(subcategory.id, subcategory);
+              }
+            });
+
+            courses = Array.isArray(data.courses) ? data.courses.slice().map(course => {
+              const normalized = Object.assign({}, course);
+              const courseCategoryId = course.category_id || '';
+              const courseSubcategoryId = course.subcategory_id || '';
+              const mappedCategory = categoryMap.get(courseCategoryId) || course.category || '';
+              const mappedSubcategoryEntry = subcategoryMap.get(courseSubcategoryId);
+              const mappedSubcategory = mappedSubcategoryEntry ? (mappedSubcategoryEntry.name || '') : (course.subcategory || '');
+
+              normalized.category_id = courseCategoryId;
+              normalized.subcategory_id = courseSubcategoryId;
+              normalized.category = mappedCategory || 'Outros Programas';
+              normalized.subcategory = mappedSubcategory || 'Geral';
+
+              return normalized;
+            }) : [];
+
+            courses.sort((a, b) => {
+              const categoryCompare = (a.category || '').localeCompare(b.category || '', 'pt', { sensitivity: 'base' });
+              if (categoryCompare !== 0) {
+                return categoryCompare;
+              }
+              const subCompare = (a.subcategory || '').localeCompare(b.subcategory || '', 'pt', { sensitivity: 'base' });
+              if (subCompare !== 0) {
+                return subCompare;
+              }
+              return (a.title || '').localeCompare(b.title || '', 'pt', { sensitivity: 'base' });
+            });
+            buildMenu(courses);
+            if (activeCourseId) {
+              setActiveCourse(activeCourseId);
+            } else {
+              renderCourse(null);
+            }
+          })
+          .catch(() => {
+            menuEmpty.style.display = '';
+            detailContainer.innerHTML = '<div class="course-empty-state">Não foi possível carregar os cursos neste momento.</div>';
+            formCard.style.display = 'none';
+          });
+      })();
+    </script>
+  </body>
+</html>
