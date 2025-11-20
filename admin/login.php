@@ -45,17 +45,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="<?php echo htmlspecialchars(admin_asset('adminV2/assets/css/auth.css'), ENT_QUOTES, 'UTF-8'); ?>">
+    <link href="<?php echo htmlspecialchars(admin_asset('admin/assets/css/styles.css'), ENT_QUOTES, 'UTF-8'); ?>" rel="stylesheet">
+    <link href="<?php echo htmlspecialchars(admin_asset('admin/assets/css/admin.css'), ENT_QUOTES, 'UTF-8'); ?>" rel="stylesheet">
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
-<body class="auth-body">
+<body>
 <div class="auth-wrapper">
     <div class="auth-card">
         <div class="auth-brand">
-            <span class="brand-icon"><i class="bi bi-shield-lock"></i></span>
+            <span class="brand-icon"><i class="fa-solid fa-shield-halved"></i></span>
             <div>
-                <h1>JOMPSON ADMIN</h1>
-                <p>Acesso reservado à equipa autorizada.</p>
+                <h1 class="h4 mb-0">JOMPSON ADMIN</h1>
+                <small class="text-muted">Acesso reservado à equipa autorizada.</small>
             </div>
         </div>
         <?php if ($error): ?>
@@ -64,18 +65,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         <?php endif; ?>
         <form method="post" autocomplete="off" novalidate>
-            <div class="mb-3 text-start">
+            <div class="mb-3">
                 <label for="username" class="form-label">Utilizador</label>
-                <input type="text" class="form-control" id="username" name="username" required autofocus>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                    <input type="text" class="form-control" id="username" name="username" required autofocus>
+                </div>
             </div>
-            <div class="mb-4 text-start">
+            <div class="mb-4">
                 <label for="password" class="form-label">Palavra-passe</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Entrar no painel</button>
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="text-muted small">Mantém as credenciais seguras.</div>
+                <button type="submit" class="btn btn-primary">Entrar no painel</button>
+            </div>
         </form>
     </div>
     <p class="auth-footer">Precisa de apoio? Contacte <a href="mailto:suporte@codigocosme.com">suporte@codigocosme.com</a></p>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
