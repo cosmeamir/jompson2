@@ -64,24 +64,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?>
             </div>
         <?php endif; ?>
-        <form method="post" autocomplete="off" novalidate>
-            <div class="mb-3">
+        <form method="post" class="auth-form" autocomplete="off" novalidate>
+            <div>
                 <label for="username" class="form-label">Utilizador</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
                     <input type="text" class="form-control" id="username" name="username" required autofocus>
                 </div>
             </div>
-            <div class="mb-4">
+            <div>
                 <label for="password" class="form-label">Palavra-passe</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
             </div>
-            <div class="d-flex align-items-center justify-content-between">
-                <div class="text-muted small">Mantém as credenciais seguras.</div>
-                <button type="submit" class="btn btn-primary">Entrar no painel</button>
+            <div class="auth-actions">
+                <div class="text-muted small mb-0">Mantém as credenciais seguras.</div>
+                <button type="submit" class="btn btn-primary flex-shrink-0">Entrar no painel</button>
             </div>
         </form>
     </div>
